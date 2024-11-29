@@ -15,16 +15,14 @@ public class Usuario {
 
     private String email;
 
-    private String nome;
+    private String name;
 
-    private String senha;
+    private String password;
 
-    private CargoUsuario cargo;
+    private CargoUsuario role;
 
     @Lob
     @Column(columnDefinition = "longblob")
     private byte[] img;
-
-
 
 }
