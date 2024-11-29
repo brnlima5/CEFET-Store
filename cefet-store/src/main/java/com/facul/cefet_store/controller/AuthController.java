@@ -24,7 +24,41 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthController {
 
+    private AuthenticationManager authenticationManager;
+
+    private final UserDetailsService userDetailsService;
+
+    private final UsuarioRepository usuarioRepository;
+
+    private final JwtUtil jwtUtil;
+
+    public static final String TOKEN_PREFIX = "Bearer ";
+
+    public static final String HEADER_STRING = "Authorization";
 
 
+    @PostMapping("/authenticate")
+    public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws IOException, JSONException {
 
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    authenticationRequest.getUsername(),
+                    authenticationRequest.getPassword()));
+        } catch (BadCredentialsException e) {
+            throw new BadCredentialsException("Usuário ou senha incorretos.");
+        }
+
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        Optional<Usuario> optionalUsuario = usuarioRepository.findFirstByEmail(userDetails.getUsername());
+        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
+
+        if(optionalUsuario.isPresent()) {
+            response.getWriter().write(new JSONObject()
+                    .put("idUsuario", optionalUsuario.get().getId())
+                    .put("cargo", optionalUsuario.get().getRole())
+                    .toString());
+        }
+
+        response.addHeader(HEADER_STRING, TOKEN_PREFIX + jwt);
+    }
 }
