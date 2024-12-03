@@ -1,13 +1,18 @@
 package com.facul.cefet_store.controller;
 
 import com.facul.cefet_store.dto.AuthenticationRequest;
+import com.facul.cefet_store.dto.SignupRequest;
+import com.facul.cefet_store.dto.UsuarioDto;
 import com.facul.cefet_store.entity.Usuario;
 import com.facul.cefet_store.repository.UsuarioRepository;
+import com.facul.cefet_store.services.jwt.auth.AuthService;
 import com.facul.cefet_store.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,8 +41,9 @@ public class AuthController {
 
     public static final String HEADER_STRING = "Authorization";
 
+    private final AuthService authService;
 
-    @PostMapping("/authenticate")
+    @PostMapping("/auth")
     public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws IOException, JSONException {
 
         try {
@@ -60,5 +66,15 @@ public class AuthController {
         }
 
         response.addHeader(HEADER_STRING, TOKEN_PREFIX + jwt);
+    }
+
+    @PostMapping("/registrar")
+    public ResponseEntity<?> signupUser(@RequestBody SignupRequest signupRequest) {
+        if(authService.hasUserWithEmail(signupRequest.getEmail())) {
+            return new ResponseEntity<>("Usuário já existe.", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        UsuarioDto usuarioDto = authService.createUser(signupRequest);
+        return new ResponseEntity<>(usuarioDto, HttpStatus.OK);
     }
 }
