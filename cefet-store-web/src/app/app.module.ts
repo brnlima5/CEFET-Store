@@ -7,6 +7,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { AngularMaterialModulos } from './AngularMaterialModulos';
 import { LoginComponent } from './login/login.component';
 import { RegistrarComponent } from './registrar/registrar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,10 @@ import { RegistrarComponent } from './registrar/registrar.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularMaterialModulos
+    AngularMaterialModulos,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [
     provideAnimationsAsync()
