@@ -25,6 +25,5 @@ public class DetalhesUsuarioServiceImpl implements UserDetailsService {
                 optionalUsuario.get().getEmail(),
                 optionalUsuario.get().getPassword(),
                 new ArrayList<>());
-
     }
 }

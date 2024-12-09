@@ -12,5 +12,5 @@ public class UsuarioDto {
 
     private String name;
 
-    private CargoUsuario cargoUsuario;
+    private CargoUsuario role;
 }

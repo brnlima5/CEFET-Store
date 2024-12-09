@@ -29,7 +29,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     private final UserDetailsService userDetailsService;
 
@@ -43,12 +43,11 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/auth")
-    public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws IOException, JSONException {
 
+    @PostMapping("/authenticate")
+    public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws IOException, JSONException {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                    authenticationRequest.getUsername(),
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
                     authenticationRequest.getPassword()));
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException("Usuário ou senha incorretos.");
@@ -60,11 +59,14 @@ public class AuthController {
 
         if(optionalUsuario.isPresent()) {
             response.getWriter().write(new JSONObject()
-                    .put("idUsuario", optionalUsuario.get().getId())
-                    .put("cargo", optionalUsuario.get().getRole())
+                    .put("userId", optionalUsuario.get().getId())
+                    .put("role", optionalUsuario.get().getRole())
                     .toString());
         }
 
+        response.addHeader("Access-Control-Expose-Headers", "Authorization");
+        response.addHeader("Access-Control-Allow-Headers", "Authorization, X-PINGOTHER, Origin, " +
+                "X-Requested-With, Content-Type, Accept, X-Custom-header");
         response.addHeader(HEADER_STRING, TOKEN_PREFIX + jwt);
     }
 

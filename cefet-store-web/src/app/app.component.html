@@ -1,9 +1,39 @@
-<mat-toolbar color="primary" class="navbar">
-  <span class="navbar-brand">CEFET Store</span>
-  <span class="spacer"></span>
-  <button mat-button routerLink="/pedido" routerLinkActive="active" style="color: white">Acompanhar Pedido</button>
-  <button mat-button routerLink="/registrar" routerLinkActive="active" style="color: white">Registrar</button>
-  <button mat-button routerLink="/login" routerLinkActive="active" style="color: white">Login</button>
-</mat-toolbar>
+<div *ngIf="!isClienteLoggedIn && !isAdminLoggedIn">
+  <mat-toolbar color="primary" class="navbar">
+    <span class="navbar-brand">CEFET Store</span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/pedido" routerLinkActive="active" style="color: white">Acompanhar Pedido</button>
+    <button mat-button routerLink="/registrar" routerLinkActive="active" style="color: white">Registrar</button>
+    <button mat-button routerLink="/login" routerLinkActive="active" style="color: white">Login</button>
+  </mat-toolbar>
+</div>
+
+<div *ngIf="isAdminLoggedIn">
+  <mat-toolbar color="primary" class="navbar">
+    <span class="navbar-brand">CEFET Store</span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/admin/painel" routerLinkActive="active" style="color: white">Painel do Administrador</button>
+    <button mat-button routerLink="/admin/analise" routerLinkActive="active" style="color: white">Análise</button>
+    <button mat-button routerLink="/admin/categoria" routerLinkActive="active" style="color: white">Categoria</button>
+    <button mat-button routerLink="/admin/produto" routerLinkActive="active" style="color: white">Produto</button>
+    <button mat-button routerLink="/admin/pedidos" routerLinkActive="active" style="color: white">Pedidos</button>
+    <button mat-button routerLink="/admin/postar-cupom" routerLinkActive="active" style="color: white">Postar Cupom</button>
+    <button mat-button routerLink="/admin/cupons" routerLinkActive="active" style="color: white">Cupons</button>
+    <button mat-button routerLinkActive="active" (click)="logout()"style="color: white">Sair</button>
+    </mat-toolbar>
+</div>
+
+<div *ngIf="isClienteLoggedIn">
+  <mat-toolbar color="primary" class="navbar">
+    <span class="navbar-brand">CEFET Store</span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/cliente/painel" routerLinkActive="active" style="color: white">Painel</button>
+    <button mat-button routerLink="/cliente/carrinho" routerLinkActive="active" style="color: white">Carrinho</button>
+    <button mat-button routerLink="/cliente/meus-pedidos" routerLinkActive="active" style="color: white">Pedidos</button>
+    <button mat-button routerLink="/cliente/lista-de-desejos" routerLinkActive="active" style="color: white">Lista de Desejos</button>
+    <button mat-button routerLink="/cliente/perfil" routerLinkActive="active" style="color: white">Perfil</button>
+    <button mat-button routerLinkActive="active" (click)="logout()"style="color: white">Sair</button>
+  </mat-toolbar>
+</div>
 
 <router-outlet></router-outlet>

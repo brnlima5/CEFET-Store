@@ -15,12 +15,12 @@ export class RegistrarComponent {
   registrarForm!: FormGroup;
   hidePassword = true;
 
-  constructor( private fb: FormBuilder,
+  constructor( 
+    private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private authService: AuthService,
-    private router: Router){
-
-  }
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.registrarForm = this.fb.group({

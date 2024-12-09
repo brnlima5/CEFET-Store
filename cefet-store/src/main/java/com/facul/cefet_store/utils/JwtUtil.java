@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +19,7 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-        public static final String SECRETE = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NTU1NSIsIm5hbWUiOiJzZWkgbGEiLCJpYXQiOjU1NTU1fQ.zuGBTy37Rak_ypHZvWnAbFuMFemf7r-3LJP1r3Ht1Zgsei la";
+        public static final String SECRET = "neZ6fdBwLZ4PDBz1p5L+DW4O1JMTb1pLpEDcygIAdhA=";
 
         public String generateToken(String userName) {
                 Map<String, Object> claims = new HashMap<>();
@@ -32,15 +34,24 @@ public class JwtUtil {
                         .setExpiration(new Date(System.currentTimeMillis() + 10000 * 60 * 30))
                         .signWith(getSignKey(), SignatureAlgorithm.HS256)
                         .compact();
-
         }
 
+        //chave random
+        /*
+        public String randomSecretKey() {
+                SecureRandom secureRandom = new SecureRandom();
+                byte[] keyBytes = new byte[32];
+                secureRandom.nextBytes(keyBytes);
+                return Base64.getEncoder().encodeToString(keyBytes);
+        }
+        */
+
         private Key getSignKey() {
-                byte[] keybytes = Decoders.BASE64.decode(SECRETE);
+                byte[] keybytes = Decoders.BASE64.decode(SECRET);
                 return Keys.hmacShaKeyFor(keybytes);
         }
 
-        public String extractUserName(String token) {
+        public String extractUsername(String token) {
                 return extractClaim(token, Claims::getSubject);
         }
 
@@ -62,7 +73,7 @@ public class JwtUtil {
         }
 
         public Boolean validateToken(String token, UserDetails userDetails) {
-                final String username = extractUserName(token);
+                final String username = extractUsername(token);
                 return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
         }
 }

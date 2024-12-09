@@ -11,7 +11,7 @@
                     <mat-label>Nome</mat-label>
                     <input matInput formControlName="name" placeholder="Nome" required>
                     <mat-error *ngIf="registrarForm.get('name').invalid && registrarForm.get('name').touched">
-                        Porfavor, digite um nome válido.
+                        Por favor, digite um nome válido.
                     </mat-error>
                 </mat-form-field>
                 <!--
@@ -21,7 +21,7 @@
                     <mat-label>E-Mail</mat-label>
                     <input matInput formControlName="email" placeholder="email" required>
                     <mat-error *ngIf="registrarForm.get('email').invalid && registrarForm.get('email').touched">
-                        Porfavor, digite um E-Mail válido.
+                        Por favor, digite um E-Mail válido.
                     </mat-error>
                 </mat-form-field> 
                 <!--
@@ -36,7 +36,7 @@
                     </button>
 
                     <mat-error *ngIf="registrarForm.get('password').invalid && registrarForm.get('password').touched">
-                        Porfavor, digite uma senha válida.
+                        Por favor, digite uma senha válida.
                     </mat-error>
                 </mat-form-field> 
                 <!--
@@ -51,7 +51,7 @@
                     </button>
                     
                     <mat-error *ngIf="registrarForm.get('confirmPassword').invalid && registrarForm.get('confirmPassword').touched">
-                        Porfavor, digite uma senha válida.
+                        Por favor, digite uma senha válida.
                     </mat-error>
                 </mat-form-field>
                 

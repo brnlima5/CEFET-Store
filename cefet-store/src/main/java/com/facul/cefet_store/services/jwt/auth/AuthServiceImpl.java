@@ -7,7 +7,6 @@ import com.facul.cefet_store.enums.CargoUsuario;
 import com.facul.cefet_store.repository.UsuarioRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +17,7 @@ public class AuthServiceImpl implements AuthService {
     private UsuarioRepository usuarioRepository;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     public UsuarioDto createUser(SignupRequest signupRequest) {
         Usuario usuario = new Usuario();
@@ -50,10 +50,5 @@ public class AuthServiceImpl implements AuthService {
             usuario.setPassword(new BCryptPasswordEncoder().encode("admin"));
             usuarioRepository.save(usuario);
         }
-    }
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }

@@ -5,14 +5,12 @@ import jakarta.servlet.*;
 import jakarta.servlet.Filter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Value;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
-//import java.util.logging.Filter;
 import java.util.logging.LogRecord;
 
 @Component
