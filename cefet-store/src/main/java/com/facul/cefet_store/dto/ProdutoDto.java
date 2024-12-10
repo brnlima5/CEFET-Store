@@ -13,7 +13,7 @@ public class ProdutoDto {
 
     private Long price;
 
-    private String decription;
+    private String description;
 
     private byte[] byteImg;
 

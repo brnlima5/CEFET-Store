@@ -22,7 +22,7 @@ public class Produto {
     private Long price;
 
     @Lob
-    private String decription;
+    private String description;
 
     @Lob
     @Column(columnDefinition = "longblob")
@@ -40,7 +40,7 @@ public class Produto {
         produtoDto.setId(id);
         produtoDto.setName(name);
         produtoDto.setPrice(price);
-        produtoDto.setDecription(decription);
+        produtoDto.setDescription(description);
         produtoDto.setByteImg(img);
         produtoDto.setCategoryId(categoria.getId());
         return produtoDto;

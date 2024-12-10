@@ -24,7 +24,7 @@ public class AdminProdutoServiceImpl implements AdminProdutoService {
     public ProdutoDto addProduct(ProdutoDto produtoDto) throws IOException {
         Produto produto = new Produto();
         produto.setName(produtoDto.getName());
-        produto.setDecription(produtoDto.getDecription());
+        produto.setDescription(produtoDto.getDescription());
         produto.setPrice(produtoDto.getPrice());
         produto.setImg(produtoDto.getImg().getBytes());
 
