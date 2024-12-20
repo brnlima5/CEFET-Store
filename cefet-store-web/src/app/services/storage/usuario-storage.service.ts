@@ -61,9 +61,6 @@ export class UsuarioStorageService {
   }
 
   static isClienteLoggedIn(): boolean {
-    console.log(localStorage.getItem('cefet-token'));
-  console.log(localStorage.getItem('cefet-user'));
-
     if(this.getToken === null) {
       return false;
     }

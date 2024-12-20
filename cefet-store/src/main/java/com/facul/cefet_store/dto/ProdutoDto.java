@@ -19,5 +19,7 @@ public class ProdutoDto {
 
     private Long categoryId;
 
+    private String categoryName;
+
     private MultipartFile img;
 }

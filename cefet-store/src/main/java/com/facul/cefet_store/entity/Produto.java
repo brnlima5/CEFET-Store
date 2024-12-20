@@ -43,6 +43,7 @@ public class Produto {
         produtoDto.setDescription(description);
         produtoDto.setByteImg(img);
         produtoDto.setCategoryId(categoria.getId());
+        produtoDto.setCategoryName(categoria.getName());
         return produtoDto;
     }
 

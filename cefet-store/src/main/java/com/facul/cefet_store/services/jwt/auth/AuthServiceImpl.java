@@ -2,8 +2,11 @@ package com.facul.cefet_store.services.jwt.auth;
 
 import com.facul.cefet_store.dto.SignupRequest;
 import com.facul.cefet_store.dto.UsuarioDto;
+import com.facul.cefet_store.entity.Pedido;
 import com.facul.cefet_store.entity.Usuario;
 import com.facul.cefet_store.enums.CargoUsuario;
+import com.facul.cefet_store.enums.StatusPedido;
+import com.facul.cefet_store.repository.PedidoRepository;
 import com.facul.cefet_store.repository.UsuarioRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,9 @@ public class AuthServiceImpl implements AuthService {
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private PedidoRepository pedidoRepository;
+
 
     public UsuarioDto createUser(SignupRequest signupRequest) {
         Usuario usuario = new Usuario();
@@ -27,6 +33,14 @@ public class AuthServiceImpl implements AuthService {
         usuario.setPassword(new BCryptPasswordEncoder().encode(signupRequest.getPassword()));
         usuario.setRole(CargoUsuario.CLIENTE);
         Usuario createdUser = usuarioRepository.save(usuario);
+
+        Pedido pedido = new Pedido();
+        pedido.setAmount(0L);
+        pedido.setTotalAmount(0L);
+        pedido.setDiscount(0L);
+        pedido.setUser(createdUser);
+        pedido.setOrderStatus(StatusPedido.Pendente);
+        pedidoRepository.save(pedido);
 
         UsuarioDto usuarioDto = new UsuarioDto();
         usuarioDto.setId(createdUser.getId());

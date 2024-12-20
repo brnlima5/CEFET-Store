@@ -22,7 +22,7 @@ public class AdminCategoriaController {
         Categoria categoria = categoriaService.createCategory(categoriaDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(categoria);
     }
-    //@GetMapping("/categorias")
+
     @GetMapping("")
     public ResponseEntity<List<Categoria>> getAllCategories() {
         return ResponseEntity.ok(categoriaService.getAllCategories());
