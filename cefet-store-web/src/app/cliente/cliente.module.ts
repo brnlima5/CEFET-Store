@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { ClienteRoutingModule } from './cliente-routing.module';
 import { ClienteComponent } from './cliente.component';
 import { PainelComponent } from './components/painel/painel.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularMaterialModulos } from '../AngularMaterialModulos';
 
 
 @NgModule({
@@ -13,7 +16,11 @@ import { PainelComponent } from './components/painel/painel.component';
   ],
   imports: [
     CommonModule,
-    ClienteRoutingModule
+    ClienteRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AngularMaterialModulos
   ]
 })
 export class ClienteModule { }
