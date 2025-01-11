@@ -1,6 +1,7 @@
 package com.facul.cefet_store.entity;
 
 import com.facul.cefet_store.enums.StatusPedido;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,7 +18,7 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String description;
+    private String orderDescription;
 
     private Date date;
 
@@ -39,8 +40,10 @@ public class Pedido {
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario user;
 
+    //?????
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-    private List<ItensCarrinho> itens;
+    @JsonManagedReference
+    private List<ItensCarrinho> cartItems;
 }
 
 

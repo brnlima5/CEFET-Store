@@ -1,5 +1,8 @@
 package com.facul.cefet_store.entity;
 
+import com.facul.cefet_store.dto.ItensCarrinhoDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
@@ -27,7 +30,24 @@ public class ItensCarrinho {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Usuario user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    //?????
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pedido_id")
+    @JsonBackReference
+    //@JsonIgnore
     private Pedido order;
+
+    public ItensCarrinhoDto getCarrinhoDto() {
+        ItensCarrinhoDto itensCarrinhoDto = new ItensCarrinhoDto();
+
+        itensCarrinhoDto.setId(id);
+        itensCarrinhoDto.setPrice(price);
+        itensCarrinhoDto.setProductId(product.getId());
+        itensCarrinhoDto.setQuantity(quantity);
+        itensCarrinhoDto.setUserId(user.getId());
+        itensCarrinhoDto.setProductName(product.getName());
+        itensCarrinhoDto.setReturnedImg(product.getImg());
+
+        return itensCarrinhoDto;
+    }
 }

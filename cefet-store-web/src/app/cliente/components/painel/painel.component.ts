@@ -53,6 +53,8 @@ export class PainelComponent {
     }
 
     addToCart(id:any) {
-
+      this.clienteService.addToCart(id).subscribe(res => {
+        this.snackBar.open("Produto adicionado ao carrinho com sucesso!", "Fechar", { duration: 5000})
+      })
     }
 }

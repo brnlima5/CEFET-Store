@@ -1,6 +1,8 @@
 package com.facul.cefet_store.services.cliente.carrinho;
 
 import com.facul.cefet_store.dto.AddProdutoCarrinhoDto;
+import com.facul.cefet_store.dto.ItensCarrinhoDto;
+import com.facul.cefet_store.dto.PedidoDto;
 import com.facul.cefet_store.entity.ItensCarrinho;
 import com.facul.cefet_store.entity.Pedido;
 import com.facul.cefet_store.entity.Produto;
@@ -15,7 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CarrinhoServiceImpl implements CarrinhoService {
@@ -55,7 +59,7 @@ public class CarrinhoServiceImpl implements CarrinhoService {
 
                 pedidoAtual.setTotalAmount(pedidoAtual.getTotalAmount() + carrinho.getPrice());
                 pedidoAtual.setAmount(pedidoAtual.getAmount() + carrinho.getPrice());
-                pedidoAtual.getItens().add(carrinho);
+                pedidoAtual.getCartItems().add(carrinho);
 
                 pedidoRepository.save(pedidoAtual);
 
@@ -64,5 +68,18 @@ public class CarrinhoServiceImpl implements CarrinhoService {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario ou produto não encontrado.");
             }
         }
+    }
+
+    public PedidoDto getCartByUserId(Long userId) {
+        Pedido pedidoAtual = pedidoRepository.findByUserIdAndOrderStatus(userId, StatusPedido.Pendente);
+        List<ItensCarrinhoDto> itensCarrinhoDto = pedidoAtual.getCartItems().stream().map(ItensCarrinho::getCarrinhoDto).collect(Collectors.toList());
+        PedidoDto pedidoDto = new PedidoDto();
+        pedidoDto.setAmount(pedidoAtual.getAmount());
+        pedidoDto.setId(pedidoAtual.getId());
+        pedidoDto.setOrderStatus(pedidoAtual.getOrderStatus());
+        pedidoDto.setDiscount(pedidoAtual.getDiscount());
+        pedidoDto.setTotalAmount(pedidoAtual.getTotalAmount());
+        pedidoDto.setCartItems(itensCarrinhoDto);
+        return pedidoDto;
     }
 }
