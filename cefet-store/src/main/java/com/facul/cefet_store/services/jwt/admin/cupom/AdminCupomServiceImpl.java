@@ -25,5 +25,4 @@ public class AdminCupomServiceImpl implements AdminCupomService {
     public List<Cupom> getAllCupons() {
         return cupomRepository.findAll();
     }
-
 }

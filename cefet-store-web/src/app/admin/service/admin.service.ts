@@ -48,6 +48,18 @@ export class AdminService {
     })
   }
 
+  addCupom(cupomDto:any): Observable<any> {
+    return this.http.post(BASIC_URL + 'api/admin/cupons', cupomDto, {
+      headers: this.createAuthorizationHeader(),
+    })
+  }
+
+  getCupons(): Observable<any> {
+    return this.http.get(BASIC_URL + 'api/admin/cupons', {
+      headers: this.createAuthorizationHeader(),
+    })
+  }
+
   private createAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set(
       'Authorization', 'Bearer ' + UsuarioStorageService.getToken()

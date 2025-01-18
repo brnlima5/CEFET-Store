@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularMaterialModulos } from '../AngularMaterialModulos';
 import { PostarCategoriaComponent } from './components/postar-categoria/postar-categoria.component';
 import { PostarProdutoComponent } from './components/postar-produto/postar-produto.component';
+import { PostarCupomComponent } from './components/postar-cupom/postar-cupom.component';
+import { CuponsComponent } from './components/cupons/cupons.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { PostarProdutoComponent } from './components/postar-produto/postar-produ
     AdminComponent,
     PainelComponent,
     PostarCategoriaComponent,
-    PostarProdutoComponent
+    PostarProdutoComponent,
+    PostarCupomComponent,
+    CuponsComponent
   ],
   imports: [
     CommonModule,
