@@ -1,5 +1,6 @@
 package com.facul.cefet_store.entity;
 
+import com.facul.cefet_store.dto.PedidoDto;
 import com.facul.cefet_store.enums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -40,10 +41,33 @@ public class Pedido {
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario user;
 
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "cupom_id", referencedColumnName = "id")
+    private Cupom cupom;
+
     //?????
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     @JsonManagedReference
     private List<ItensCarrinho> cartItems;
+
+    public PedidoDto getPedidoDto() {
+        PedidoDto pedidoDto = new PedidoDto();
+
+        pedidoDto.setId(id);
+        pedidoDto.setDescription(orderDescription);
+        pedidoDto.setAddress(address);
+        pedidoDto.setTrackingId(trackingId);
+        pedidoDto.setAmount(amount);
+        pedidoDto.setDate(date);
+        pedidoDto.setOrderStatus(orderStatus);
+        pedidoDto.setUserName(user.getName());
+
+        if(cupom != null) {
+            pedidoDto.setCupomName(cupom.getName());
+        }
+        return pedidoDto;
+    }
+
 }
 
 

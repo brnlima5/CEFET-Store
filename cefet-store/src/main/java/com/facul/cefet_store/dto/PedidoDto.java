@@ -34,4 +34,6 @@ public class PedidoDto {
     private String userName;
 
     private List<ItensCarrinhoDto> cartItems;
+
+    private String cupomName;
 }

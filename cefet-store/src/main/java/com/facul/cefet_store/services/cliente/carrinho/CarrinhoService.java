@@ -9,4 +9,6 @@ public interface CarrinhoService {
     ResponseEntity<?> addProductToCart(AddProdutoCarrinhoDto addProdutoCarrinhoDto);
 
     PedidoDto getCartByUserId(Long userId);
+
+    PedidoDto applyCupom(Long userId, String code);
 }

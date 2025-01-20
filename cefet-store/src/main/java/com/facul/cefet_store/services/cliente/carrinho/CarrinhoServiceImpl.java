@@ -3,20 +3,16 @@ package com.facul.cefet_store.services.cliente.carrinho;
 import com.facul.cefet_store.dto.AddProdutoCarrinhoDto;
 import com.facul.cefet_store.dto.ItensCarrinhoDto;
 import com.facul.cefet_store.dto.PedidoDto;
-import com.facul.cefet_store.entity.ItensCarrinho;
-import com.facul.cefet_store.entity.Pedido;
-import com.facul.cefet_store.entity.Produto;
-import com.facul.cefet_store.entity.Usuario;
+import com.facul.cefet_store.entity.*;
 import com.facul.cefet_store.enums.StatusPedido;
-import com.facul.cefet_store.repository.ItensCarrinhoRepository;
-import com.facul.cefet_store.repository.PedidoRepository;
-import com.facul.cefet_store.repository.ProdutoRepository;
-import com.facul.cefet_store.repository.UsuarioRepository;
+import com.facul.cefet_store.exceptions.ValidationException;
+import com.facul.cefet_store.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,6 +31,10 @@ public class CarrinhoServiceImpl implements CarrinhoService {
 
     @Autowired
     private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private CupomRepository cupomRepository;
+
 
     public ResponseEntity<?> addProductToCart(AddProdutoCarrinhoDto addProdutoCarrinhoDto) {
         Pedido pedidoAtual = pedidoRepository.findByUserIdAndOrderStatus(addProdutoCarrinhoDto.getUserId(), StatusPedido.Pendente);
@@ -80,6 +80,40 @@ public class CarrinhoServiceImpl implements CarrinhoService {
         pedidoDto.setDiscount(pedidoAtual.getDiscount());
         pedidoDto.setTotalAmount(pedidoAtual.getTotalAmount());
         pedidoDto.setCartItems(itensCarrinhoDto);
+
+        if(pedidoAtual.getCupom() != null) {
+            pedidoDto.setCupomName(pedidoAtual.getCupom().getName());
+        }
+
         return pedidoDto;
     }
+
+    public PedidoDto applyCupom(Long userId, String code) {
+        Pedido pedidoAtual = pedidoRepository.findByUserIdAndOrderStatus(userId, StatusPedido.Pendente);
+        Cupom cupom = cupomRepository.findByCode(code).orElseThrow(()-> new ValidationException("Cupom não encontrado."));
+
+        if(cupomExpirado(cupom)) {
+            throw new ValidationException("Cupom expirado.");
+        }
+
+        double desconto = ((cupom.getDiscount() / 100.0) * pedidoAtual.getTotalAmount());
+        double liquido = pedidoAtual.getTotalAmount() - desconto;
+
+        pedidoAtual.setAmount((long)liquido);
+        pedidoAtual.setDiscount((long)desconto);
+        pedidoAtual.setCupom(cupom);
+
+        pedidoRepository.save(pedidoAtual);
+
+        return pedidoAtual.getPedidoDto();
+    }
+
+    private boolean cupomExpirado(Cupom cupom) {
+        Date dataAtual = new Date();
+        Date dataExpiracao = cupom.getExpirationDate();
+
+        return dataExpiracao != null && dataAtual.after(dataExpiracao);
+    }
+
+
 }
