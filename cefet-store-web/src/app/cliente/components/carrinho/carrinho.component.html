@@ -31,11 +31,26 @@
         <div class="total-price">
             Valor: R{{ order.amount | currency }}
         </div>
+        <div class="total-price" *ngIf="order.cupomName != null">
+            Cupom Aplicado: {{ order.cupomName }}
+        </div>
         <div>
             <button mat-raised-button color="primary">Fazer Pedido</button>
         </div>
-
     </div>
+
+    <div class="container" *ngIf="order.cupomName == null">
+        <form [formGroup]="cupomForm" (ngSubmit)="applyCupom()">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Código</mat-label>
+                <input matInput type="text" placeholder="Código" formControlName="code"/>
+                <mat-error *ngIf="cupomForm.get('code')?.hasError('required')">Este campo é obrigatório!</mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit">Aplicar Cupom</button>
+            </form>
+    </div>
+
 </div>
 
 <ng-template #emptyCart>

@@ -41,6 +41,14 @@ export class ClienteService {
       })
     }
 
+    applyCupom(code:any): Observable<any>{
+      const userId = UsuarioStorageService.getUserId()
+      return this.http.get(BASIC_URL + `api/cliente/cupom/${userId}/${code}`, {
+        headers: this.createAuthorizationHeader(),
+      })
+    }
+
+
     private createAuthorizationHeader(): HttpHeaders {
         return new HttpHeaders().set(
           'Authorization', 'Bearer ' + UsuarioStorageService.getToken()

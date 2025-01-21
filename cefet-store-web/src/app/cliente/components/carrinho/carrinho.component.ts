@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ClienteService } from '../../services/cliente.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -16,13 +16,31 @@ export class CarrinhoComponent {
   cartItems: any[] = [];
   order: any;
 
+  cupomForm!: FormGroup;
+
   constructor(private clienteService: ClienteService,
     private snackbar: MatSnackBar,
     private fb: FormBuilder,
     private dialog: MatDialog,){}
 
     ngOnInit(): void {
+      this.cupomForm = this.fb.group({
+        code: [null, [Validators.required]]
+      })
       this.getCart();
+    }
+
+    applyCupom() {
+      this.clienteService.applyCupom(this.cupomForm.get(['code'])!.value).subscribe(res =>{
+        this.snackbar.open("Cupom aplicado com sucesso!", 'Fechar', {
+          duration: 5000
+        });
+        this.getCart();
+      }, error => {
+        this.snackbar.open(error.error, 'Fechar', {
+          duration: 5000
+        });
+      })
     }
 
     getCart() {
