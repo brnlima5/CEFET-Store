@@ -1,7 +1,9 @@
 package com.facul.cefet_store.controller.admin;
 
+import com.facul.cefet_store.dto.FAQDto;
 import com.facul.cefet_store.dto.ProdutoDto;
 import com.facul.cefet_store.services.jwt.admin.adminproduto.AdminProdutoService;
+import com.facul.cefet_store.services.jwt.admin.faq.FAQService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,8 @@ import java.util.List;
 public class AdminProdutoController {
 
     private final AdminProdutoService adminProdutoService;
+
+    private final FAQService faqService;
 
     @PostMapping("/produto")
     public ResponseEntity<ProdutoDto> addProduct(@ModelAttribute ProdutoDto produtoDto) throws IOException {
@@ -42,5 +46,10 @@ public class AdminProdutoController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/faq/{produtoId}")
+    public ResponseEntity<FAQDto> postFAQ(@PathVariable Long produtoId, @RequestBody FAQDto faqDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(faqService.postFAQ(produtoId, faqDto));
     }
 }

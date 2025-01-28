@@ -3,6 +3,7 @@ import { ClienteService } from '../../services/cliente.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { FazerPedidoComponent } from '../fazer-pedido/fazer-pedido.component';
 
 @Component({
   selector: 'app-carrinho',
@@ -52,5 +53,23 @@ export class CarrinhoComponent {
           this.cartItems.push(element);
         });
       })
+    }
+
+    increaseQuantity(productId: any) {
+      this.clienteService.increaseProductQuantity(productId).subscribe(res => {
+        this.snackbar.open('Produto adicionado.', 'Fechar', { duration: 5000});
+        this.getCart();
+      })
+    }
+
+    decreaseQuantity(productId: any) {
+      this.clienteService.decreaseProductQuantity(productId).subscribe(res => {
+        this.snackbar.open('Produto retirado.', 'Fechar', { duration: 5000});
+        this.getCart();
+      })
+    }
+
+    fazerPedido() {
+      this.dialog.open(FazerPedidoComponent);
     }
 }

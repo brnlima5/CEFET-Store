@@ -6,6 +6,8 @@ import { PostarCategoriaComponent } from './components/postar-categoria/postar-c
 import { PostarProdutoComponent } from './components/postar-produto/postar-produto.component';
 import { PostarCupomComponent } from './components/postar-cupom/postar-cupom.component';
 import { CuponsComponent } from './components/cupons/cupons.component';
+import { PedidosComponent } from './components/pedidos/pedidos.component';
+import { PostarFaqComponent } from './components/postar-faq/postar-faq.component';
 
 const routes: Routes = [
   { path: '', component: AdminComponent },
@@ -14,6 +16,8 @@ const routes: Routes = [
   { path: 'produto', component: PostarProdutoComponent },
   { path: 'postar-cupom', component: PostarCupomComponent },
   { path: 'cupons', component: CuponsComponent },
+  { path: 'pedidos', component: PedidosComponent },
+  { path: 'faq/:produtoId', component: PostarFaqComponent },
 ];
 
 @NgModule({

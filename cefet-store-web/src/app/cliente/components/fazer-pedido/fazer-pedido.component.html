@@ -1,0 +1,31 @@
+<div class="container">
+    <mat-card>
+        <mat-card-title>Fazer Pedido</mat-card-title>
+        <mat-card-content>
+            <form [formGroup]="pedidoForm">
+                <mat-form-field appearance="outline">
+                    <mat-label>Endereço</mat-label>
+                    <input matInput formControlName="address" placeholder="Endereço" required>
+                    <mat-error *ngIf="pedidoForm.get('address').invalid && pedidoForm.get('address').touched">
+                        Este campo é obrigatório.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Descrição</mat-label>
+                    <input matInput formControlName="orderDescription" placeholder="Descrição">
+                </mat-form-field>
+                
+                <div class="button-row">
+                    <button mat-raised-button color="primary" type="submit" [disabled]="pedidoForm.invalid" (click)="fazerPedido()" class="order-button">
+                        Pedido
+                    </button>
+                    <button mat-stroked-button color="warn" class="close-button" (click)="closeForm()" class="close-button">
+                        Fechar
+                    </button>
+                </div>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

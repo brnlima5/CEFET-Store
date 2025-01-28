@@ -12,11 +12,11 @@
                         </div>
                         <div class="item-price"> R{{ item.price | currency }}></div>
                         <div class="quantity-controls">
-                            <button mat-icon-button [disabled]="item.quantity == 1"> 
+                            <button mat-icon-button [disabled]="item.quantity == 1" (click)="decreaseQuantity(item.productId)"> 
                                 <mat-icon>remove_circle_outline</mat-icon>
                             </button>
                             <span class="quantity">{{ item.quantity }}</span>
-                            <button mat-icon-button>
+                            <button mat-icon-button (click)="increaseQuantity(item.productId)">
                                 <mat-icon>add_circle_outline</mat-icon>
                             </button>
                         </div>
@@ -35,7 +35,7 @@
             Cupom Aplicado: {{ order.cupomName }}
         </div>
         <div>
-            <button mat-raised-button color="primary">Fazer Pedido</button>
+            <button mat-raised-button color="primary" (click)="fazerPedido()">Fazer Pedido</button>
         </div>
     </div>
 

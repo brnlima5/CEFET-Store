@@ -8,13 +8,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModulos } from '../AngularMaterialModulos';
 import { CarrinhoComponent } from './components/carrinho/carrinho.component';
+import { FazerPedidoComponent } from './components/fazer-pedido/fazer-pedido.component';
+import { MeusPedidosComponent } from './components/meus-pedidos/meus-pedidos.component';
 
 
 @NgModule({
   declarations: [
     ClienteComponent,
     PainelComponent,
-    CarrinhoComponent
+    CarrinhoComponent,
+    FazerPedidoComponent,
+    MeusPedidosComponent
   ],
   imports: [
     CommonModule,

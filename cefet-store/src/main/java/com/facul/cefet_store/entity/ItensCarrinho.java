@@ -31,10 +31,9 @@ public class ItensCarrinho {
     private Usuario user;
 
     //?????
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pedido_id")
     @JsonBackReference
-    //@JsonIgnore
     private Pedido order;
 
     public ItensCarrinhoDto getCarrinhoDto() {

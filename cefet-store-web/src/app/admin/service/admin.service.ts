@@ -60,6 +60,24 @@ export class AdminService {
     })
   }
 
+  getPedidos(): Observable<any> {
+    return this.http.get(BASIC_URL + 'api/admin/pedidosFeitos', {
+      headers: this.createAuthorizationHeader(),
+    })
+  }
+
+  mudarStatusPedido(pedidoId: number, status: string): Observable<any> {
+    return this.http.get(BASIC_URL + `api/admin/pedido/${pedidoId}/${status}`, {
+      headers: this.createAuthorizationHeader(),
+    })
+  }
+
+  postFAQ(produtoId: number, faqDto: any): Observable<any> {
+    return this.http.post(BASIC_URL + `api/admin/faq/${produtoId}`, faqDto, {
+      headers: this.createAuthorizationHeader(),
+    })
+  }
+
   private createAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set(
       'Authorization', 'Bearer ' + UsuarioStorageService.getToken()

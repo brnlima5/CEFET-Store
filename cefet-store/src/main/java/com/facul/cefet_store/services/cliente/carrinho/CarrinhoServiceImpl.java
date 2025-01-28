@@ -1,6 +1,7 @@
 package com.facul.cefet_store.services.cliente.carrinho;
 
 import com.facul.cefet_store.dto.AddProdutoCarrinhoDto;
+import com.facul.cefet_store.dto.FazerPedidoDto;
 import com.facul.cefet_store.dto.ItensCarrinhoDto;
 import com.facul.cefet_store.dto.PedidoDto;
 import com.facul.cefet_store.entity.*;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -115,5 +117,105 @@ public class CarrinhoServiceImpl implements CarrinhoService {
         return dataExpiracao != null && dataAtual.after(dataExpiracao);
     }
 
+    public PedidoDto increaseProductQuantity(AddProdutoCarrinhoDto addProdutoCarrinhoDto) {
+        Pedido pedidoAtual = pedidoRepository.findByUserIdAndOrderStatus(addProdutoCarrinhoDto.getUserId(), StatusPedido.Pendente);
+        Optional<Produto> optionalProduto = produtoRepository.findById(addProdutoCarrinhoDto.getProductId());
 
+        Optional<ItensCarrinho> optionalItensCarrinho = itensCarrinhoRepository.findByProductIdAndOrderIdAndUserId(
+                addProdutoCarrinhoDto.getProductId(),
+                pedidoAtual.getId(),
+                addProdutoCarrinhoDto.getUserId()
+        );
+
+        if(optionalProduto.isPresent() && optionalItensCarrinho.isPresent())  {
+            ItensCarrinho itensCarrinho = optionalItensCarrinho.get();
+            Produto produto = optionalProduto.get();
+
+            pedidoAtual.setAmount(pedidoAtual.getAmount() + produto.getPrice());
+            pedidoAtual.setTotalAmount(pedidoAtual.getTotalAmount() + produto.getPrice());
+
+            itensCarrinho.setQuantity(itensCarrinho.getQuantity() + 1);
+
+            if(pedidoAtual.getCupom() != null) {
+                double desconto = ((pedidoAtual.getCupom().getDiscount() / 100.0) * pedidoAtual.getTotalAmount());
+                double liquido = pedidoAtual.getTotalAmount() - desconto;
+
+                pedidoAtual.setAmount((long)liquido);
+                pedidoAtual.setDiscount((long)desconto);
+            }
+
+            itensCarrinhoRepository.save(itensCarrinho);
+            pedidoRepository.save(pedidoAtual);
+            return pedidoAtual.getPedidoDto();
+        }
+        return null;
+    }
+
+    public PedidoDto decreaseProductQuantity(AddProdutoCarrinhoDto addProdutoCarrinhoDto) {
+        Pedido pedidoAtual = pedidoRepository.findByUserIdAndOrderStatus(addProdutoCarrinhoDto.getUserId(), StatusPedido.Pendente);
+        Optional<Produto> optionalProduto = produtoRepository.findById(addProdutoCarrinhoDto.getProductId());
+
+        Optional<ItensCarrinho> optionalItensCarrinho = itensCarrinhoRepository.findByProductIdAndOrderIdAndUserId(
+                addProdutoCarrinhoDto.getProductId(),
+                pedidoAtual.getId(),
+                addProdutoCarrinhoDto.getUserId()
+        );
+
+        if(optionalProduto.isPresent() && optionalItensCarrinho.isPresent())  {
+            ItensCarrinho itensCarrinho = optionalItensCarrinho.get();
+            Produto produto = optionalProduto.get();
+
+            pedidoAtual.setAmount(pedidoAtual.getAmount() - produto.getPrice());
+            pedidoAtual.setTotalAmount(pedidoAtual.getTotalAmount() - produto.getPrice());
+
+            itensCarrinho.setQuantity(itensCarrinho.getQuantity() - 1);
+
+            if(pedidoAtual.getCupom() != null) {
+                double desconto = ((pedidoAtual.getCupom().getDiscount() / 100.0) * pedidoAtual.getTotalAmount());
+                double liquido = pedidoAtual.getTotalAmount() - desconto;
+
+                pedidoAtual.setAmount((long)liquido);
+                pedidoAtual.setDiscount((long)desconto);
+            }
+
+            itensCarrinhoRepository.save(itensCarrinho);
+            pedidoRepository.save(pedidoAtual);
+            return pedidoAtual.getPedidoDto();
+        }
+        return null;
+    }
+
+    public PedidoDto fazerPedido(FazerPedidoDto fazerPedidoDto) {
+        Pedido pedidoAtual = pedidoRepository.findByUserIdAndOrderStatus(fazerPedidoDto.getUserId(), StatusPedido.Pendente);
+        Optional<Usuario> optionalUsuario = usuarioRepository.findById(fazerPedidoDto.getUserId());
+
+        if(optionalUsuario.isPresent()) {
+            pedidoAtual.setOrderDescription(fazerPedidoDto.getOrderDescription());
+            pedidoAtual.setAddress(fazerPedidoDto.getAddress());
+            pedidoAtual.setDate(new Date());
+            pedidoAtual.setOrderStatus(StatusPedido.Adicionado);
+            pedidoAtual.setTrackingId(UUID.randomUUID());
+
+            pedidoRepository.save(pedidoAtual);
+
+            Pedido pedido = new Pedido();
+            pedido.setAmount(0L);
+            pedido.setTotalAmount(0L);
+            pedido.setDiscount(0L);
+            pedido.setUser(optionalUsuario.get());
+            pedido.setOrderStatus(StatusPedido.Pendente);
+
+            pedidoRepository.save(pedido);
+
+            return pedidoAtual.getPedidoDto();
+        }
+        return null;
+    }
+
+    public List<PedidoDto> getPedidosFeitos(Long userId) {
+        return pedidoRepository.findByUserIdAndOrderStatusIn(userId,
+                List.of(StatusPedido.Adicionado,
+                        StatusPedido.Enviado,
+                        StatusPedido.Entregue)).stream().map(Pedido::getPedidoDto).collect(Collectors.toList());
+    }
 }
