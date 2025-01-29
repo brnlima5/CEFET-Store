@@ -53,4 +53,36 @@ public class AdminProdutoServiceImpl implements AdminProdutoService {
         }
         return false;
     }
+
+    public ProdutoDto getProductById(Long productId) {
+        Optional<Produto> optionalProduto = produtoRepository.findById(productId);
+
+        if(optionalProduto.isPresent()) {
+            return optionalProduto.get().getDto();
+        } else {
+            return null;
+        }
+    }
+
+    public ProdutoDto updateProduct(Long produtoId, ProdutoDto produtoDto) throws IOException {
+        Optional<Produto> optionalProduto = produtoRepository.findById(produtoId);
+        Optional<Categoria> optionalCategoria = categoriaRepository.findById(produtoDto.getCategoryId());
+
+        if(optionalProduto.isPresent() && optionalCategoria.isPresent()) {
+            Produto produto = optionalProduto.get();
+
+            produto.setName(produtoDto.getName());
+            produto.setPrice(produtoDto.getPrice());
+            produto.setDescription(produtoDto.getDescription());
+            produto.setCategoria(optionalCategoria.get());
+            if(produtoDto.getImg() != null) {
+                produto.setImg(produtoDto.getImg().getBytes());
+            }
+            return produtoRepository.save(produto).getDto();
+        } else {
+            return null;
+        }
+    }
+
+
 }
