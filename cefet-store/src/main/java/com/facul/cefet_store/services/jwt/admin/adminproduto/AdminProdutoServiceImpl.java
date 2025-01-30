@@ -68,7 +68,15 @@ public class AdminProdutoServiceImpl implements AdminProdutoService {
         Optional<Produto> optionalProduto = produtoRepository.findById(produtoId);
         Optional<Categoria> optionalCategoria = categoriaRepository.findById(produtoDto.getCategoryId());
 
+        //---------teste---------
+        System.out.println("ID Produto: " + produtoId);
+        System.out.println("Produto DTO: " +
+                produtoDto.getId() + " / " +
+                produtoDto.getName() + "/ " +
+                produtoDto.getPrice());
+        //----------------------
         if(optionalProduto.isPresent() && optionalCategoria.isPresent()) {
+            System.out.println("->update");
             Produto produto = optionalProduto.get();
 
             produto.setName(produtoDto.getName());
@@ -80,6 +88,7 @@ public class AdminProdutoServiceImpl implements AdminProdutoService {
             }
             return produtoRepository.save(produto).getDto();
         } else {
+            System.out.println("->nulo");
             return null;
         }
     }

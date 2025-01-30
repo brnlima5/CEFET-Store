@@ -8,12 +8,14 @@ import { PostarCupomComponent } from './components/postar-cupom/postar-cupom.com
 import { CuponsComponent } from './components/cupons/cupons.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { PostarFaqComponent } from './components/postar-faq/postar-faq.component';
+import { AtualizarProdutoComponent } from './components/atualizar-produto/atualizar-produto.component';
 
 const routes: Routes = [
   { path: '', component: AdminComponent },
   { path: 'painel', component: PainelComponent },
   { path: 'categoria', component: PostarCategoriaComponent },
   { path: 'produto', component: PostarProdutoComponent },
+  { path: 'produto/:produtoId', component: AtualizarProdutoComponent },
   { path: 'postar-cupom', component: PostarCupomComponent },
   { path: 'cupons', component: CuponsComponent },
   { path: 'pedidos', component: PedidosComponent },

@@ -67,7 +67,7 @@ public class AdminProdutoController {
     public ResponseEntity<ProdutoDto> updateProduct(@PathVariable Long produtoId, @ModelAttribute ProdutoDto produtoDto) throws IOException {
         ProdutoDto prodAtualizado = adminProdutoService.updateProduct(produtoId, produtoDto);
         if(prodAtualizado != null) {
-            return ResponseEntity.ok(produtoDto);
+            return ResponseEntity.ok(prodAtualizado);
         } else {
             return ResponseEntity.notFound().build();
         }
