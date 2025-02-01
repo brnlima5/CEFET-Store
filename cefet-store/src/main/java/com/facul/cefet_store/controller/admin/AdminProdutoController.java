@@ -58,7 +58,7 @@ public class AdminProdutoController {
         ProdutoDto produtoDto = adminProdutoService.getProductById(produtoId);
         if(produtoDto != null) {
             return ResponseEntity.ok(produtoDto);
-        } else {
+        } else {    
             return ResponseEntity.notFound().build();
         }
     }

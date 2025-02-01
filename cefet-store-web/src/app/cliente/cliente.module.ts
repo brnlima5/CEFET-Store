@@ -10,6 +10,8 @@ import { AngularMaterialModulos } from '../AngularMaterialModulos';
 import { CarrinhoComponent } from './components/carrinho/carrinho.component';
 import { FazerPedidoComponent } from './components/fazer-pedido/fazer-pedido.component';
 import { MeusPedidosComponent } from './components/meus-pedidos/meus-pedidos.component';
+import { VerProdutosPedidosComponent } from './components/ver-produtos-pedidos/ver-produtos-pedidos.component';
+import { AvaliacaoProdutoPedidoComponent } from './components/avaliacao-produto-pedido/avaliacao-produto-pedido.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { MeusPedidosComponent } from './components/meus-pedidos/meus-pedidos.com
     PainelComponent,
     CarrinhoComponent,
     FazerPedidoComponent,
-    MeusPedidosComponent
+    MeusPedidosComponent,
+    VerProdutosPedidosComponent,
+    AvaliacaoProdutoPedidoComponent
   ],
   imports: [
     CommonModule,

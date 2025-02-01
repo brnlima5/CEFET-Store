@@ -84,6 +84,18 @@ export class ClienteService {
     }
     //-----
 
+    getProdutosPedidos(pedidoId:number): Observable<any>{
+      return this.http.get(BASIC_URL + `api/cliente/produtos-pedidos/${pedidoId}` ,{
+        headers: this.createAuthorizationHeader(),
+      })
+    }
+
+    getAvaliacao(avaliacaoDto:any): Observable<any>{
+      return this.http.post(BASIC_URL + `api/cliente/avaliacao`, avaliacaoDto, {
+        headers: this.createAuthorizationHeader(),
+      })
+    }
+
     private createAuthorizationHeader(): HttpHeaders {
         return new HttpHeaders().set(
           'Authorization', 'Bearer ' + UsuarioStorageService.getToken()
