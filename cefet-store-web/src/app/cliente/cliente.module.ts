@@ -12,6 +12,7 @@ import { FazerPedidoComponent } from './components/fazer-pedido/fazer-pedido.com
 import { MeusPedidosComponent } from './components/meus-pedidos/meus-pedidos.component';
 import { VerProdutosPedidosComponent } from './components/ver-produtos-pedidos/ver-produtos-pedidos.component';
 import { AvaliacaoProdutoPedidoComponent } from './components/avaliacao-produto-pedido/avaliacao-produto-pedido.component';
+import { DetalheProdutoComponent } from './components/detalhe-produto/detalhe-produto.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { AvaliacaoProdutoPedidoComponent } from './components/avaliacao-produto-
     FazerPedidoComponent,
     MeusPedidosComponent,
     VerProdutosPedidosComponent,
-    AvaliacaoProdutoPedidoComponent
+    AvaliacaoProdutoPedidoComponent,
+    DetalheProdutoComponent
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,6 @@
 package com.facul.cefet_store.controller.cliente;
 
+import com.facul.cefet_store.dto.DetalheProdutoDto;
 import com.facul.cefet_store.dto.ProdutoDto;
 import com.facul.cefet_store.services.cliente.ClienteProdutoService;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +29,15 @@ public class ClienteProdutoController {
     public ResponseEntity<List<ProdutoDto>> getAllProductsByName(@PathVariable String name) {
         List<ProdutoDto> produtoDtos = clienteProdutoService.searchProductByTitle(name);
         return ResponseEntity.ok(produtoDtos);
+    }
+
+    @GetMapping("/produto/{productId}")
+    public ResponseEntity<DetalheProdutoDto> getProductDetailById(@PathVariable Long productId) {
+        DetalheProdutoDto detalheProdutoDto = clienteProdutoService.getProductDetailById(productId);
+
+        if(detalheProdutoDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(detalheProdutoDto);
     }
 }

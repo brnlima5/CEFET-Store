@@ -1,0 +1,45 @@
+review-de<div class="center-container" *ngIf="produto">
+    <div class="product-card">
+        <div class="product-image">
+            <img [src]="produto.processedImg" alt="{{ produto.name }} Image">
+        </div>
+        <div class="product-details">
+            <h2>{{ produto.name }}</h2>
+            <p class="description">{{ produto.description }}</p>
+            <p class="price">Preço: R${{ produto.price }}</p>
+            <p class="category">Categoria: {{ produto.categoryName }}</p>
+        </div>
+    </div>
+</div>
+
+<h1 class="section-heading" *ngIf="avaliacoes.length > 0">Avaliações dos Alunos e Professores</h1>
+<div *ngIf="avaliacoes" class="review-list">
+    <div class="center-container">
+        <div *ngFor="let avaliacao of avaliacoes" class="review-card">
+            <div class="review-image">
+                <img [src]="avaliacao.processedImg" *ngIf="avaliacao.processedImg" alt="{{ avaliacao.description }} Image" class="small-image">
+            </div>
+            <div class="review-details">
+                <h2>{{ avaliacao.description }}</h2>
+                <div class="details-row">    
+                    <p class="rating">Nota: {{ avaliacao.rating }}</p>
+                    <p class="username">Usuário: {{ avaliacao.username }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1 class="section-heading" *ngIf="FAQS.length > 0">Perguntas Frequentes</h1>
+<div *ngIf="FAQS" class="faq-list">
+    <div class="center-container">
+        <div *ngFor="let faq of FAQS" class="faq-card"> 
+            <div class="faq-details">
+                <p class="question">Pergunta:</p>
+                <p class="question-text">{{ faq.question }}</p>
+                <p class="answer">Resposta:</p>
+                <p class="answer-text">{{ faq.answer }}</p>
+            </div>
+        </div>
+    </div>
+</div>

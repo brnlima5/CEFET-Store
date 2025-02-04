@@ -6,6 +6,7 @@ import { CarrinhoComponent } from './components/carrinho/carrinho.component';
 import { MeusPedidosComponent } from './components/meus-pedidos/meus-pedidos.component';
 import { VerProdutosPedidosComponent } from './components/ver-produtos-pedidos/ver-produtos-pedidos.component';
 import { AvaliacaoProdutoPedidoComponent } from './components/avaliacao-produto-pedido/avaliacao-produto-pedido.component';
+import { DetalheProdutoComponent } from './components/detalhe-produto/detalhe-produto.component';
 
 const routes: Routes = [
   { path: '', component: ClienteComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'meus-pedidos', component: MeusPedidosComponent },
   { path: 'produtos-pedidos/:pedidoId', component: VerProdutosPedidosComponent },
   { path: 'avaliacao/:produtoId', component: AvaliacaoProdutoPedidoComponent },
+  { path: 'produto/:produtoId', component: DetalheProdutoComponent },
 ];
 
 @NgModule({
