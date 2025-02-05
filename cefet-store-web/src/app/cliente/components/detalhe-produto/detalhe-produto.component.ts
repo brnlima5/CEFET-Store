@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClienteService } from '../../services/cliente.service';
 import { ActivatedRoute } from '@angular/router';
+import { UsuarioStorageService } from '../../../services/storage/usuario-storage.service';
 
 @Component({
   selector: 'app-detalhe-produto',
@@ -41,6 +42,26 @@ export class DetalheProdutoComponent {
         this.avaliacoes.push(element);
       });
     })
+  }
+
+  addListaDeDesejos() {
+    const listaDesejosDto = {
+      productId: this.produtoId,
+      userId: UsuarioStorageService.getUserId()
+    }
+
+    this.clienteService.addProdutoListaDesejos(listaDesejosDto).subscribe(res =>{
+      if(res.id = null) {
+        this.snackBar.open('Produto adicionado à Lista de Desejos com sucesso!', 'Fechar', {
+          duration: 5000
+        })
+      } else {
+        this.snackBar.open('Este produto já está na Lista de Desejos.', 'Fechar', {
+          duration: 5000
+        });
+      }
+    })
+
   }
 
 }

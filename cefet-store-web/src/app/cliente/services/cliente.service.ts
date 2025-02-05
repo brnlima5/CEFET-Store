@@ -102,6 +102,12 @@ export class ClienteService {
       })
     }
 
+    addProdutoListaDesejos(listaDesejosDto:any): Observable<any>{
+      return this.http.post(BASIC_URL + `api/cliente/lista-desejos`, listaDesejosDto, {
+        headers: this.createAuthorizationHeader(),
+      })
+    }
+
     private createAuthorizationHeader(): HttpHeaders {
         return new HttpHeaders().set(
           'Authorization', 'Bearer ' + UsuarioStorageService.getToken()

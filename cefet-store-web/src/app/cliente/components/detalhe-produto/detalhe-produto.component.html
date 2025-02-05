@@ -7,7 +7,9 @@ review-de<div class="center-container" *ngIf="produto">
             <h2>{{ produto.name }}</h2>
             <p class="description">{{ produto.description }}</p>
             <p class="price">Preço: R${{ produto.price }}</p>
-            <p class="category">Categoria: {{ produto.categoryName }}</p>
+            <p class="category">Categoria: {{ produto.categoryName }}
+                <mat-icon class="heart-icon" (click)="addListaDeDesejos()" style="cursor: pointer; margin-top: 10px;">favorite_border</mat-icon>
+            </p>
         </div>
     </div>
 </div>

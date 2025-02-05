@@ -1,5 +1,6 @@
 package com.facul.cefet_store.entity;
 
+import com.facul.cefet_store.dto.ListaDesejosDto;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
@@ -23,4 +24,18 @@ public class ListaDesejos {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Usuario user;
 
+
+    public ListaDesejosDto getListaDesejosDto() {
+        ListaDesejosDto listaDesejosDto = new ListaDesejosDto();
+
+        listaDesejosDto.setId(id);
+        listaDesejosDto.setProductId(product.getId());
+        listaDesejosDto.setReturnedImg(product.getImg());
+        listaDesejosDto.setProductName(product.getName());
+        listaDesejosDto.setProductDescription(product.getDescription());
+        listaDesejosDto.setPrice(product.getPrice());
+        listaDesejosDto.setUserId(user.getId());
+
+        return listaDesejosDto;
+    }
 }
