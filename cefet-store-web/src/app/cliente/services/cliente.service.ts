@@ -108,6 +108,13 @@ export class ClienteService {
       })
     }
 
+    getListaDesejosByUserId(): Observable<any>{
+      const userId = UsuarioStorageService.getUserId();
+      return this.http.get(BASIC_URL + `api/cliente/lista-desejos/${userId}`, {
+        headers: this.createAuthorizationHeader(),
+      })
+    }
+
     private createAuthorizationHeader(): HttpHeaders {
         return new HttpHeaders().set(
           'Authorization', 'Bearer ' + UsuarioStorageService.getToken()

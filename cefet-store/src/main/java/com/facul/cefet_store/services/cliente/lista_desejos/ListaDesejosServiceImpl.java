@@ -10,7 +10,9 @@ import com.facul.cefet_store.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +37,10 @@ public class ListaDesejosServiceImpl implements ListaDesejosService {
             return listaDesejosRepository.save(listaDesejos).getListaDesejosDto();
         }
         return null;
+    }
+
+    public List<ListaDesejosDto> getListaDesejosByUserId(Long userId) {
+        return listaDesejosRepository.findAllByUserId(userId).stream().map(ListaDesejos::getListaDesejosDto).collect(Collectors.toList());
     }
 
 }
