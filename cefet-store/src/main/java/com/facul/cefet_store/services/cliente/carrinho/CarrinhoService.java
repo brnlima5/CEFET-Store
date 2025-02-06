@@ -6,6 +6,7 @@ import com.facul.cefet_store.dto.PedidoDto;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface CarrinhoService {
 
@@ -22,4 +23,6 @@ public interface CarrinhoService {
     public PedidoDto fazerPedido(FazerPedidoDto fazerPedidoDto);
 
     List<PedidoDto> getPedidosFeitos(Long userId);
+
+    PedidoDto buscarPedidoByTrackingId(UUID trackingId);
 }

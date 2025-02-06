@@ -38,4 +38,8 @@ export class AuthService {
       
     )
   }
+
+  buscarPedidoByTrackingId(trackingId: number): Observable<any> {
+    return this.http.get(BASIC_URL + `pedido/${trackingId}`);
+  }
 }

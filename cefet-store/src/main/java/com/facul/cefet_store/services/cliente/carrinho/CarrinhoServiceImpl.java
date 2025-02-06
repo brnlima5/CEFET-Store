@@ -218,4 +218,14 @@ public class CarrinhoServiceImpl implements CarrinhoService {
                         StatusPedido.Enviado,
                         StatusPedido.Entregue)).stream().map(Pedido::getPedidoDto).collect(Collectors.toList());
     }
+
+    public PedidoDto buscarPedidoByTrackingId(UUID trackingId) {
+        Optional<Pedido> optionalPedido = pedidoRepository.findByTrackingId(trackingId);
+
+        if(optionalPedido.isPresent()) {
+            return optionalPedido.get().getPedidoDto();
+        }
+        return null;
+    }
+
 }

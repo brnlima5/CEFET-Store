@@ -9,12 +9,14 @@ import { LoginComponent } from './login/login.component';
 import { RegistrarComponent } from './registrar/registrar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MonitorarPedidoComponent } from './monitorar-pedido/monitorar-pedido.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegistrarComponent
+    RegistrarComponent,
+    MonitorarPedidoComponent
   ],
   imports: [
     BrowserModule,

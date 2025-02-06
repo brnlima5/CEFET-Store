@@ -1,0 +1,43 @@
+<form [formGroup]="buscarPedidoForm" class="search-form" (submit)="submitForm()">
+    <mat-form-field appearance="outline" class="search-input">
+        <mat-label>Informe o ID do pedido</mat-label>
+        <input matInput formControlName="trackingId">
+        <button mat-button matSuffix color="primary" [disabled]="buscarPedidoForm.invalid">
+            <mat-icon>search</mat-icon>
+        </button>
+    </mat-form-field>
+</form>
+
+<div class="order-details-container" *ngIf="pedido">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Detalhes do Pedido</mat-card-title>
+        </mat-card-header>
+
+        <div class="order-detail">
+            <br>
+            ID de Acompanhamento:
+            <strong>{{ pedido.trackingId }}</strong>
+        </div>
+        <div class="order-detail">
+            Nome: 
+            <strong>{{ pedido.userName }}</strong>
+        </div>
+        <div class="order-detail">
+            Endereço: 
+            <strong>{{ pedido.address }}</strong>
+        </div>
+        <div class="order-detail">
+            Valor: 
+            <strong>R{{ pedido.amount | currency }}</strong>
+        </div>
+        <div class="order-detail">
+            Status: 
+            <strong>{{ pedido.orderStatus }}</strong>
+        </div>
+        <div class="order-detail">
+            Data: 
+            <strong>{{ pedido.date | date }}</strong>
+        </div>
+    </mat-card>
+</div>
