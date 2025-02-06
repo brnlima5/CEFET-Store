@@ -5,6 +5,7 @@ import { RegistrarComponent } from './registrar/registrar.component';
 import { MonitorarPedidoComponent } from './monitorar-pedido/monitorar-pedido.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
   { path: 'registrar', component: RegistrarComponent},
   { path: 'pedido', component: MonitorarPedidoComponent},

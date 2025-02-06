@@ -1,3 +1,4 @@
+<!-- html c/ "estrelas" em dropbox
 <form [formGroup]="avaliacaoForm" class="review-form">
 
     <div class="file-upload-container">
@@ -40,3 +41,48 @@
     <button mat-raised-button color="primary" type="submit" (click)="submitForm()">Enviar</button>
 
 </form>
+-->
+
+<!--html c/ "estrelas" estilizadas-->
+<form [formGroup]="avaliacaoForm" class="review-form">
+
+    <div class="file-upload-container">
+        <label class="file-upload-label">
+            <span>Selecione um arquivo</span>
+            <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden>
+            <mat-icon>attach_file</mat-icon>
+        </label>
+
+        <div *ngIf="selectedFile" class="image-preview">
+            <div class="circle-image">
+                <img [src]="imagePreview" alt="Selected Image" class="preview-image">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="star-rating">
+        <mat-label class="nota-label">Nota:</mat-label>
+        <div class="stars">
+            <mat-icon *ngFor="let star of [1, 2, 3, 4, 5]" 
+                      (click)="setRating(star)"
+                      [ngClass]="{'selected': rating >= star}">
+                star
+            </mat-icon>
+        </div>
+        <mat-error *ngIf="avaliacaoForm.get('rating').invalid && avaliacaoForm.get('rating').touched">
+            Por favor, selecione uma nota.
+        </mat-error>
+    </div>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <textarea matInput formControlName="description" placeholder="Descrição" rows="5"></textarea>
+        <mat-error *ngIf="avaliacaoForm.get('description').invalid && avaliacaoForm.get('description').touched">
+            Este campo é obrigatório!
+        </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" (click)="submitForm()">Enviar</button>
+
+</form> 

@@ -6,6 +6,7 @@ import com.facul.cefet_store.enums.StatusPedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,4 +21,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     List<Pedido> findByUserIdAndOrderStatusIn(Long userId, List<StatusPedido> statusPedidos);
 
     Optional<Pedido> findByTrackingId(UUID trackingId);
+
+    List<Pedido> findByDateBetweenAndOrderStatus(Date inicioDoMes, Date finalDoMes, StatusPedido status);
+
+    Long countByOrderStatus(StatusPedido status);
 }

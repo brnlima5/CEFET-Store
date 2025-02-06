@@ -1,5 +1,6 @@
 package com.facul.cefet_store.controller.admin;
 
+import com.facul.cefet_store.dto.AnalisePedido;
 import com.facul.cefet_store.dto.PedidoDto;
 import com.facul.cefet_store.services.jwt.admin.adminPedido.AdminPedidoService;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,11 @@ public class AdminPedidoController {
             return new ResponseEntity<>("Deu ruim", HttpStatus.BAD_REQUEST);
         }
         return ResponseEntity.status(HttpStatus.OK).body(pedidoDto);
+    }
+
+    @GetMapping("/pedido/analise")
+    public ResponseEntity<AnalisePedido> getAnalise() {
+        return ResponseEntity.ok(adminPedidoService.calcularAnalises());
     }
 
 }

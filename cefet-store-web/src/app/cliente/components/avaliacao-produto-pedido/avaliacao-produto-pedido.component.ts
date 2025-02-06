@@ -14,6 +14,7 @@ import { UsuarioStorageService } from '../../../services/storage/usuario-storage
 })
 export class AvaliacaoProdutoPedidoComponent {
 
+  rating: number =0;
   produtoId: number;
   avaliacaoForm!: FormGroup;
   selectedFile: File | null;
@@ -69,6 +70,11 @@ export class AvaliacaoProdutoPedidoComponent {
         });
       }
     })
+  }
+
+  setRating(star: number) {
+    this.rating = star;
+    this.avaliacaoForm.get('rating')?.setValue(star);
   }
 
 }

@@ -9,6 +9,7 @@ import { CuponsComponent } from './components/cupons/cupons.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { PostarFaqComponent } from './components/postar-faq/postar-faq.component';
 import { AtualizarProdutoComponent } from './components/atualizar-produto/atualizar-produto.component';
+import { AnaliseComponent } from './components/analise/analise.component';
 
 const routes: Routes = [
   { path: '', component: AdminComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'cupons', component: CuponsComponent },
   { path: 'pedidos', component: PedidosComponent },
   { path: 'faq/:produtoId', component: PostarFaqComponent },
+  { path: 'analise', component: AnaliseComponent },
 ];
 
 @NgModule({

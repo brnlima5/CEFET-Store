@@ -14,6 +14,8 @@ import { CuponsComponent } from './components/cupons/cupons.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { PostarFaqComponent } from './components/postar-faq/postar-faq.component';
 import { AtualizarProdutoComponent } from './components/atualizar-produto/atualizar-produto.component';
+import { AnaliseComponent } from './components/analise/analise.component';
+import { PedidoPorStatusComponent } from './components/analise/pedido-por-status/pedido-por-status.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { AtualizarProdutoComponent } from './components/atualizar-produto/atuali
     CuponsComponent,
     PedidosComponent,
     PostarFaqComponent,
-    AtualizarProdutoComponent
+    AtualizarProdutoComponent,
+    AnaliseComponent,
+    PedidoPorStatusComponent
   ],
   imports: [
     CommonModule,

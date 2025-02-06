@@ -1,5 +1,6 @@
 <div *ngIf="!isClienteLoggedIn && !isAdminLoggedIn">
   <mat-toolbar color="primary" class="navbar">
+    <mat-icon class="navbar-icon">store</mat-icon>
     <span class="navbar-brand">CEFET Store</span>
     <span class="spacer"></span>
     <button mat-button routerLink="/pedido" routerLinkActive="active" style="color: white">Monitorar Pedido</button>
@@ -10,6 +11,7 @@
 
 <div *ngIf="isAdminLoggedIn">
   <mat-toolbar color="primary" class="navbar">
+    <mat-icon class="navbar-icon">store</mat-icon>
     <span class="navbar-brand">CEFET Store</span>
     <span class="spacer"></span>
     <button mat-button routerLink="/admin/painel" routerLinkActive="active" style="color: white">Painel do Administrador</button>
@@ -25,13 +27,13 @@
 
 <div *ngIf="isClienteLoggedIn">
   <mat-toolbar color="primary" class="navbar">
+    <mat-icon class="navbar-icon">store</mat-icon>
     <span class="navbar-brand">CEFET Store</span>
     <span class="spacer"></span>
     <button mat-button routerLink="/cliente/painel" routerLinkActive="active" style="color: white">Painel</button>
     <button mat-button routerLink="/cliente/carrinho" routerLinkActive="active" style="color: white">Carrinho</button>
     <button mat-button routerLink="/cliente/meus-pedidos" routerLinkActive="active" style="color: white">Pedidos</button>
     <button mat-button routerLink="/cliente/lista-desejos" routerLinkActive="active" style="color: white">Lista de Desejos</button>
-    <button mat-button routerLink="/cliente/perfil" routerLinkActive="active" style="color: white">Perfil</button>
     <button mat-button routerLinkActive="active" (click)="logout()"style="color: white">Sair</button>
   </mat-toolbar>
 </div>
