@@ -9,7 +9,7 @@ import { ClienteService } from '../../services/cliente.service';
   styleUrl: './meus-pedidos.component.scss'
 })
 export class MeusPedidosComponent {
-
+  
   meusPedidos:any;
 
   constructor(private clienteService: ClienteService) {  }

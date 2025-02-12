@@ -20,6 +20,4 @@ public class AnalisePedido {
     private Long ganhoMesAtual;
 
     private Long ganhoMesAnterior;
-
-
 }
